@@ -1,0 +1,38 @@
+[Unit]
+Description=CloudAndBear Desktop (Avalonia, DRM)
+# uzima tty1 od konzolne prijave (getty); servis radi kao nalog cloudandbear (vidi cloudandbear.sysusers), ne kao root
+After=systemd-user-sessions.service systemd-logind.service systemd-sysusers.service getty@tty1.service
+Conflicts=getty@tty1.service
+ConditionPathExists=/dev/tty0
+# konzolna prijava se vraca kad desktop cisto izadje (Ctrl+Alt+Q), kad se zaustavi, i kad padne vise puta zaredom
+OnSuccess=getty@tty1.service
+OnFailure=getty@tty1.service
+StartLimitIntervalSec=30
+StartLimitBurst=3
+
+[Service]
+User=cloudandbear
+Group=cloudandbear
+# PAM otvara logind sesiju na tty1: zato nalog dobija pristup ekranu i tastaturi, a restart i iskljucenje prolaze kroz polkit
+PAMName=cloudandbear-desktop
+UtmpIdentifier=tty1
+UtmpMode=user
+# /var/lib/cloudandbear: izabrani raspored tastature, kubeconfig; systemd ga pravi i daje nalogu
+StateDirectory=cloudandbear
+Environment=HOME=/var/lib/cloudandbear
+ExecStart=/opt/cloudandbear-desktop/CloudAndBear.Device
+# jedan pad se ponovo pokrece posle dve sekunde
+Restart=on-failure
+RestartSec=2
+StandardInput=tty
+StandardOutput=journal
+StandardError=journal
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+# posle izlaza ili pada: vrati tastaturu terminala (desktop je gasi dok radi); "+" = kao root, jer nalog ne sme to posle prestanka sesije
+ExecStopPost=+-/usr/bin/kbd_mode -u -C /dev/tty1
+
+[Install]
+WantedBy=multi-user.target

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
 using CloudAndBear.Ui.Services;
 using CloudAndBear.Ui.ViewModels;
@@ -49,6 +50,18 @@ public partial class DesktopView : UserControl
                 Gesture = new KeyGesture(shortcut.Key, shortcut.Modifiers),
                 Command = new RelayCommand(() => run(_desktop)),
             });
+        }
+
+        // na uređaju (nije prozor) crtamo sopstveni kursor, jer ga Avalonia ne crta
+        if (top is not Window)
+        {
+            top.AddHandler(PointerMovedEvent, (_, moved) =>
+            {
+                var p = moved.GetPosition(this);
+                Canvas.SetLeft(MouseCursor, p.X);
+                Canvas.SetTop(MouseCursor, p.Y);
+                MouseCursor.IsVisible = true;
+            }, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
         }
     }
 

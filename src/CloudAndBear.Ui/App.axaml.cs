@@ -8,6 +8,9 @@ namespace CloudAndBear.Ui;
 
 public partial class App : Application
 {
+    /// <summary>Servisi za desktop na uređaju (DRM); bez njih se uzimaju podrazumevani (vidi DesktopServices.Create).</summary>
+    public static Services.DesktopServices? Services { get; set; }
+
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     public override void OnFrameworkInitializationCompleted()
@@ -21,7 +24,7 @@ public partial class App : Application
 
             // uređaj (DRM): nema prozora, jedan pogled preko celog ekrana
             case ISingleViewApplicationLifetime single:
-                single.MainView = new DesktopView();
+                single.MainView = new DesktopView(Services ?? Ui.Services.DesktopServices.Create());
                 break;
         }
 

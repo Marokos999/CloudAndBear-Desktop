@@ -19,6 +19,9 @@ public static class DesktopShortcuts
     [
         new(Key.F1, Alt, d => d.ToggleLauncherCommand.Execute(null)),
 
+        // izlaz u konzolu kad ništa drugo ne radi (na uređaju zatvara desktop, servis vraća prijavu na tty1)
+        new(Key.Q, KeyModifiers.Control | Alt, d => d.Services.System.ExitToConsole()),
+
         // prozori: Alt+Tab menja prozor; Alt+F6 isto (Windows hvata Alt+Tab pa se u pregledu koristi ovo)
         new(Key.Tab, Alt, d => d.ActivateNext(1)),
         new(Key.Tab, Alt | KeyModifiers.Shift, d => d.ActivateNext(-1)),

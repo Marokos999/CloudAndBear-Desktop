@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/CloudAndBear.Device/CloudAndBear.Device.csproj" />
     <Project Path="src/CloudAndBear.Preview/CloudAndBear.Preview.csproj" />
     <Project Path="src/CloudAndBear.Ui/CloudAndBear.Ui.csproj" />
   </Folder>

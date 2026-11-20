@@ -62,5 +62,6 @@ Odluka (2026-11-21): **svoj emulator**, bez biblioteke. Razlog: nema spoljnih za
 2. ~~Traka + pokretač + tastatura~~ (gotovo, koraci 2–4).
 3. ~~Sistem i Mreža~~ (gotovo, servisi Linux + Fake).
 4. ~~Terminal~~ (gotovo).
-5. Podešavanja, zaključani ekran / prijava, instalacija.
-6. `CloudAndBear.Device`: DRM domaćin (ulaz, kursor, servisi) i provera na Debianu u VM-u.
+5. ~~Kontejneri i Kubernetes~~ (gotovo).
+6. ~~`CloudAndBear.Device`: DRM domaćin (ulaz, kursor, servisi) i provera na Debianu u VM-u~~ (gotovo, vidi `docs/DEVICE.md`).
+7. Podešavanja, zaključani ekran / prijava, instalacija; paket `.deb` za ovaj projekat; provera na laptopu.

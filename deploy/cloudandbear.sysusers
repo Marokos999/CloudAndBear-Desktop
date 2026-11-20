@@ -1,0 +1,11 @@
+# CloudAndBear Desktop: nalog bez prijave i lozinke koji pokrece desktop (servis cloudandbear-desktop); ide u /usr/lib/sysusers.d/cloudandbear.conf
+# video i render: ekran (DRM), input: tastatura i mis, docker: aplikacija Kontejneri
+g video -
+g input -
+g render -
+g docker -
+u cloudandbear - "CloudAndBear Desktop" /var/lib/cloudandbear /usr/sbin/nologin
+m cloudandbear video
+m cloudandbear input
+m cloudandbear render
+m cloudandbear docker

@@ -101,5 +101,11 @@
     <!-- traka -->
     <views:PanelView Grid.Row="1" />
 
+    <!-- kursor miša: na uređaju ga Avalonia ne crta, pa ga crtamo sami (u prozoru na PC-u ostaje skriven) -->
+    <Canvas Grid.RowSpan="2" IsHitTestVisible="False">
+      <Path x:Name="MouseCursor" IsVisible="False" Fill="White" Stroke="Black" StrokeThickness="1"
+            Data="M0,0 L0,17 L4.5,13 L7.5,20 L10,19 L7,12 L12.5,12 Z" />
+    </Canvas>
+
   </Grid>
 </UserControl>

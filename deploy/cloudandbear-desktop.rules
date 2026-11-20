@@ -1,0 +1,15 @@
+// CloudAndBear Desktop: nalog cloudandbear sme da restartuje i iskljuci racunar i da upravlja mrezom (Wi-Fi) bez lozinke.
+// Ide u /etc/polkit-1/rules.d/49-cloudandbear-desktop.rules. Sesija na tty1 to vec dozvoljava; ovo vazi i kad sesija nije aktivna.
+polkit.addRule(function(action, subject) {
+    if (subject.user != "cloudandbear") {
+        return polkit.Result.NOT_HANDLED;
+    }
+    if (action.id.indexOf("org.freedesktop.NetworkManager.") == 0 ||
+        action.id == "org.freedesktop.login1.reboot" ||
+        action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+        action.id == "org.freedesktop.login1.power-off" ||
+        action.id == "org.freedesktop.login1.power-off-multiple-sessions") {
+        return polkit.Result.YES;
+    }
+    return polkit.Result.NOT_HANDLED;
+});

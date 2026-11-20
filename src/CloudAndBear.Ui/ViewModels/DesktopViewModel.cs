@@ -37,6 +37,10 @@ public sealed class DesktopViewModel : ViewModelBase
 
         ToggleLauncherCommand = new RelayCommand(ToggleLauncher);
         CloseLauncherCommand = new RelayCommand(() => CloseLauncher());
+        NextLayoutCommand = new RelayCommand(services.Keyboard.Next);
+
+        // raspored menja ulaz na svojoj niti: oznaka u traci se osvežava na UI niti
+        services.Keyboard.Changed += () => Dispatcher.UIThread.Post(() => Raise(nameof(LayoutName)));
 
         UpdateClock();
         var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
@@ -50,6 +54,10 @@ public sealed class DesktopViewModel : ViewModelBase
 
     public ICommand ToggleLauncherCommand { get; }
     public ICommand CloseLauncherCommand { get; }
+    public ICommand NextLayoutCommand { get; }
+
+    /// <summary>Oznaka rasporeda tastature u traci (US, SR, SR-US).</summary>
+    public string LayoutName => Services.Keyboard.Current.Name;
 
     public WindowViewModel? ActiveWindow => Windows.FirstOrDefault(w => w.IsActive);
 

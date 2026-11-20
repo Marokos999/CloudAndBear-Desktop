@@ -142,6 +142,7 @@ internal sealed class PtySession : ITerminalSession
         psi.ArgumentList.Add(shell);
         psi.ArgumentList.Add("-l");
 
+        psi.Environment["SHELL"] = shell;   // nalog bez prijave inače daje SHELL=/usr/sbin/nologin
         psi.Environment["TERM"] = "xterm-256color";
         psi.Environment["COLORTERM"] = "truecolor";
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LANG"))) psi.Environment["LANG"] = "C.UTF-8";
@@ -149,17 +150,21 @@ internal sealed class PtySession : ITerminalSession
         return Process.Start(psi) ?? throw new IOException("ljuska se nije pokrenula");
     }
 
+    // nalog koji pokreće desktop nema prijavu (ljuska nologin): terminal ipak mora da dobije pravu ljusku
+    private static bool IsUsable(string? shell) =>
+        !string.IsNullOrEmpty(shell) && File.Exists(shell) && !shell.EndsWith("nologin") && !shell.EndsWith("/false");
+
     private static string ResolveShell()
     {
         var shell = Environment.GetEnvironmentVariable("SHELL");
-        if (!string.IsNullOrEmpty(shell) && File.Exists(shell)) return shell;
+        if (IsUsable(shell)) return shell!;
 
         try
         {
             // /etc/passwd: ime:x:uid:gid:opis:home:ljuska
             var line = File.ReadLines("/etc/passwd").FirstOrDefault(l => l.StartsWith(Environment.UserName + ":"));
             var fromPasswd = line?.Split(':').LastOrDefault();
-            if (!string.IsNullOrEmpty(fromPasswd) && File.Exists(fromPasswd)) return fromPasswd;
+            if (IsUsable(fromPasswd)) return fromPasswd!;
         }
         catch
         {

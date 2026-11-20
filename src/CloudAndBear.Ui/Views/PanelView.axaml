@@ -40,10 +40,12 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
 
-      <!-- sistemska oblast (mreža i raspored su za sada samo oblik, prave vrednosti dolaze iz servisa) -->
-      <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="16" Margin="0,0,8,0" VerticalAlignment="Center">
+      <!-- sistemska oblast (oznaka mreže je za sada samo oblik; raspored tastature je pravi: klik ili Alt+Shift ga menja) -->
+      <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="12" Margin="0,0,8,0" VerticalAlignment="Center">
         <Path Classes="icon" Data="M2,6 A8,8 0 0 1 14,6 M4.2,8.6 A5,5 0 0 1 11.8,8.6 M6.4,11.2 A2,2 0 0 1 9.6,11.2 M8,13.4 L8,13.5" />
-        <TextBlock Classes="muted" Text="SR" VerticalAlignment="Center" />
+        <Button Classes="flat" MinWidth="48" Height="32" Command="{Binding NextLayoutCommand}">
+          <TextBlock Classes="muted" Text="{Binding LayoutName}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Button>
         <TextBlock Text="{Binding ClockText}" FontWeight="SemiBold" VerticalAlignment="Center" />
       </StackPanel>
 
