@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CloudAndBear.Ui.ViewModels"
+             x:Class="CloudAndBear.Ui.Views.WindowFrame"
+             x:DataType="vm:WindowViewModel"
+             IsVisible="{Binding IsOnDesktop}">
+
+  <Grid>
+
+    <!-- okvir prozora -->
+    <Border Classes="window" Classes.active="{Binding IsActive}" Classes.maximized="{Binding IsMaximized}">
+      <Grid RowDefinitions="Auto,*">
+
+        <!-- naslovna traka: prevlačenje, dvoklik = maksimizuj -->
+        <Border x:Name="TitleBar" Classes="titlebar"
+                PointerPressed="OnTitlePressed"
+                PointerMoved="OnPointerMoved"
+                PointerReleased="OnPointerReleased"
+                DoubleTapped="OnTitleDoubleTapped">
+          <Grid ColumnDefinitions="Auto,*,Auto" Margin="12,0,4,0">
+            <Path Classes="icon" Data="{Binding IconData}" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="1" Classes="windowtitle" Margin="10,0" VerticalAlignment="Center" Text="{Binding Title}" />
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+              <Button Classes="flat" Width="32" Height="28" Command="{Binding MinimizeCommand}">
+                <Path Classes="icon" Data="M3,12 L13,12" />
+              </Button>
+              <Button Classes="flat" Width="32" Height="28" Command="{Binding ToggleMaximizeCommand}">
+                <Path Classes="icon" Data="{Binding MaximizeIconData}" />
+              </Button>
+              <Button Classes="flat close" Width="32" Height="28" Command="{Binding CloseCommand}">
+                <Path Classes="icon" Data="M3.5,3.5 L12.5,12.5 M12.5,3.5 L3.5,12.5" />
+              </Button>
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <!-- sadržaj aplikacije -->
+        <ContentControl x:Name="Body" Grid.Row="1" Content="{Binding Content}"
+                        Focusable="True" FocusAdorner="{x:Null}" />
+      </Grid>
+    </Border>
+
+    <!-- hvataljke za promenu veličine (ivice i uglovi) -->
+    <Grid x:Name="Grips" IsVisible="{Binding !IsMaximized}"
+          PointerPressed="OnGripPressed"
+          PointerMoved="OnPointerMoved"
+          PointerReleased="OnPointerReleased">
+      <Border Tag="N" Classes="grip" Height="5" Margin="10,0" VerticalAlignment="Top" Cursor="SizeNorthSouth" />
+      <Border Tag="S" Classes="grip" Height="5" Margin="10,0" VerticalAlignment="Bottom" Cursor="SizeNorthSouth" />
+      <Border Tag="W" Classes="grip" Width="5" Margin="0,10" HorizontalAlignment="Left" Cursor="SizeWestEast" />
+      <Border Tag="E" Classes="grip" Width="5" Margin="0,10" HorizontalAlignment="Right" Cursor="SizeWestEast" />
+      <Border Tag="NW" Classes="grip" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="TopLeftCorner" />
+      <Border Tag="NE" Classes="grip" Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="TopRightCorner" />
+      <Border Tag="SW" Classes="grip" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Cursor="BottomLeftCorner" />
+      <Border Tag="SE" Classes="grip" Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="BottomRightCorner" />
+    </Grid>
+
+  </Grid>
+</UserControl>

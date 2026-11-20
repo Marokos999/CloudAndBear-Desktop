@@ -1,0 +1,29 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CloudAndBear.Ui.App"
+             RequestedThemeVariant="Dark">
+
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://CloudAndBear.Ui/Theme/Tokens.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+
+  <Application.Styles>
+    <!-- Fluent kontrole (dugme, polje, prekidač...) prate naše boje; vrednosti iz Tokens.axaml (Accent, Background) -->
+    <FluentTheme>
+      <FluentTheme.Palettes>
+        <ColorPaletteResources x:Key="Dark" Accent="#9ECBFF" RegionColor="#101820" ErrorText="#F87171" />
+      </FluentTheme.Palettes>
+    </FluentTheme>
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/Styles.axaml" />
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/ControlStyles.axaml" />
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/WindowStyles.axaml" />
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/PanelStyles.axaml" />
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/LauncherStyles.axaml" />
+    <StyleInclude Source="avares://CloudAndBear.Ui/Theme/StatusStyles.axaml" />
+  </Application.Styles>
+
+</Application>

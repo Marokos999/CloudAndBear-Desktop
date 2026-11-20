@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:CloudAndBear.Ui.ViewModels"
+             xmlns:views="using:CloudAndBear.Ui.Views"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+             x:Class="CloudAndBear.Ui.Views.DesktopView"
+             x:DataType="vm:DesktopViewModel"
+             Background="{DynamicResource BackgroundBrush}"
+             TextElement.Foreground="{DynamicResource TextBrush}"
+             TextElement.FontSize="{DynamicResource FontSizeBody}">
+
+  <!-- koja aplikacija (ViewModel) se crta kojim pogledom (View) -->
+  <UserControl.DataTemplates>
+    <DataTemplate DataType="vm:StyleGuideViewModel">
+      <views:StyleGuideView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:PlaceholderViewModel">
+      <views:PlaceholderView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:SystemViewModel">
+      <views:SystemView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:NetworkViewModel">
+      <views:NetworkView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:ContainersViewModel">
+      <views:ContainersView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:KubernetesViewModel">
+      <views:KubernetesView />
+    </DataTemplate>
+    <DataTemplate DataType="vm:TerminalViewModel">
+      <!-- razmak oko terminala; broj kolona i redova se računa iz površine unutar njega -->
+      <Border Background="{DynamicResource TerminalBackgroundBrush}" Padding="8,6">
+        <views:TerminalControl />
+      </Border>
+    </DataTemplate>
+  </UserControl.DataTemplates>
+
+  <Grid RowDefinitions="*,Auto">
+
+    <!-- radna površina: pozadina i prozori -->
+    <Grid x:Name="Workspace" ClipToBounds="True">
+      <TextBlock Text="C&amp;B" FontSize="200" FontWeight="Bold" Opacity="0.04"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" />
+
+      <ItemsControl x:Name="WindowHost" ItemsSource="{Binding Windows}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <Canvas />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+
+        <!-- položaj, veličina i redosled prozora dolaze iz ViewModel-a -->
+        <ItemsControl.Styles>
+          <Style Selector="ItemsControl > ContentPresenter" x:DataType="vm:WindowViewModel">
+            <Setter Property="Canvas.Left" Value="{Binding Left}" />
+            <Setter Property="Canvas.Top" Value="{Binding Top}" />
+            <Setter Property="Width" Value="{Binding Width}" />
+            <Setter Property="Height" Value="{Binding Height}" />
+            <Setter Property="ZIndex" Value="{Binding ZIndex}" />
+          </Style>
+        </ItemsControl.Styles>
+
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:WindowViewModel">
+            <views:WindowFrame />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Grid>
+
+    <!-- pokretač: iznad radne površine, odmah iznad trake (traka ostaje klikabilna) -->
+    <Grid IsVisible="{Binding IsLauncherOpen}">
+      <!-- klik van pokretača ga zatvara -->
+      <Border Background="Transparent" PointerPressed="OnBackdropPressed" />
+
+      <Border Classes="launcher" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8">
+        <StackPanel Spacing="8">
+          <TextBox x:Name="SearchBox" PlaceholderText="Pretraga" Text="{Binding LauncherQuery}"
+                   KeyDown="OnSearchKeyDown" />
+
+          <ItemsControl ItemsSource="{Binding FilteredApps}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:AppEntryViewModel">
+                <Button Classes="flat entry" Classes.selected="{Binding IsSelected}" Command="{Binding OpenCommand}">
+                  <StackPanel Orientation="Horizontal" Spacing="12" Margin="12,0" VerticalAlignment="Center">
+                    <Path Classes="icon" Data="{Binding IconData}" />
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+    </Grid>
+
+    <!-- traka -->
+    <views:PanelView Grid.Row="1" />
+
+  </Grid>
+</UserControl>

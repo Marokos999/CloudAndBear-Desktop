@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CloudAndBear.Ui.ViewModels"
+             x:Class="CloudAndBear.Ui.Views.KubernetesView"
+             x:DataType="vm:KubernetesViewModel">
+
+  <Grid Margin="20" RowDefinitions="Auto,Auto,*" RowSpacing="12">
+
+    <Grid ColumnDefinitions="*,Auto">
+      <TextBlock Classes="title" Text="{Binding Summary}" VerticalAlignment="Center" />
+      <Button Grid.Column="1" Content="Osveži" Command="{Binding Refresh}" />
+    </Grid>
+
+    <TextBlock Grid.Row="1" Text="{Binding Problem}" IsVisible="{Binding HasProblem}"
+               Foreground="{DynamicResource DangerBrush}" TextWrapping="Wrap" />
+
+    <Grid Grid.Row="2" ColumnDefinitions="200,*" ColumnSpacing="16">
+
+      <!-- konteksti -->
+      <Border Classes="card">
+        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="8">
+          <TextBlock Classes="caption muted" Text="Konteksti" />
+          <ListBox Grid.Row="1" ItemsSource="{Binding Contexts}" SelectedItem="{Binding SelectedContext}" Background="Transparent">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="x:String">
+                <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" />
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+          <TextBlock Grid.Row="2" Classes="caption muted" Text="{Binding KubeconfigText}" TextWrapping="Wrap" />
+        </Grid>
+      </Border>
+
+      <Grid Grid.Column="1" RowDefinitions="Auto,*" RowSpacing="12">
+
+        <!-- čvorovi -->
+        <Border Classes="card">
+          <StackPanel Spacing="6">
+            <TextBlock Classes="caption muted" Text="Čvorovi" />
+            <ItemsControl ItemsSource="{Binding Nodes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:NodeRow">
+                  <Grid ColumnDefinitions="*,190,120,80" Margin="0,2">
+                    <TextBlock Text="{Binding Node.Name}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="1" Classes="status" Classes.good="{Binding IsGood}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}"
+                               Text="{Binding Node.Status}" />
+                    <TextBlock Grid.Column="2" Classes="muted" Text="{Binding Node.Roles}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="3" Classes="muted" Text="{Binding Node.Version}" TextTrimming="CharacterEllipsis" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+
+        <!-- podovi -->
+        <Border Grid.Row="1" Classes="card">
+          <Grid RowDefinitions="Auto,Auto,*" RowSpacing="6">
+            <TextBlock Classes="caption muted" Text="Podovi (svi namespace-ovi)" />
+            <Grid Grid.Row="1" ColumnDefinitions="120,*,76,160,64,48">
+              <TextBlock Classes="caption muted" Text="NAMESPACE" />
+              <TextBlock Grid.Column="1" Classes="caption muted" Text="IME" />
+              <TextBlock Grid.Column="2" Classes="caption muted" Text="SPREMNO" />
+              <TextBlock Grid.Column="3" Classes="caption muted" Text="STANJE" />
+              <TextBlock Grid.Column="4" Classes="caption muted" Text="PONOVO" />
+              <TextBlock Grid.Column="5" Classes="caption muted" Text="STAR" />
+            </Grid>
+            <ScrollViewer Grid.Row="2">
+              <ItemsControl ItemsSource="{Binding Pods}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="vm:PodRow">
+                    <Grid ColumnDefinitions="120,*,76,160,64,48" Margin="0,2">
+                      <TextBlock Classes="muted" Text="{Binding Pod.Namespace}" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Grid.Column="1" Text="{Binding Pod.Name}" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Grid.Column="2" Text="{Binding Pod.Ready}" />
+                      <TextBlock Grid.Column="3" Classes="status" Classes.good="{Binding IsGood}" Classes.warn="{Binding IsWarn}" Classes.bad="{Binding IsBad}"
+                                 Text="{Binding Pod.Status}" />
+                      <TextBlock Grid.Column="4" Classes="muted" Text="{Binding Pod.Restarts}" />
+                      <TextBlock Grid.Column="5" Classes="muted" Text="{Binding Pod.Age}" />
+                    </Grid>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </Grid>
+    </Grid>
+  </Grid>
+</UserControl>

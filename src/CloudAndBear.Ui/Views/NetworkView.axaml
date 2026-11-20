@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CloudAndBear.Ui.ViewModels"
+             xmlns:svc="using:CloudAndBear.Ui.Services"
+             x:Class="CloudAndBear.Ui.Views.NetworkView"
+             x:DataType="vm:NetworkViewModel">
+
+  <Grid Margin="24" RowDefinitions="Auto,*" RowSpacing="16">
+
+    <!-- adapteri -->
+    <Border Classes="card">
+      <StackPanel Spacing="8">
+        <TextBlock Classes="caption muted" Text="Veze" />
+        <TextBlock Text="{Binding Problem}" Foreground="{DynamicResource DangerBrush}" IsVisible="{Binding HasProblem}" />
+        <ItemsControl ItemsSource="{Binding Devices}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:DeviceRow">
+              <Grid ColumnDefinitions="90,80,120,*,120" Margin="0,3">
+                <TextBlock Text="{Binding Name}" />
+                <TextBlock Grid.Column="1" Classes="muted" Text="{Binding TypeText}" />
+                <TextBlock Grid.Column="2" Text="{Binding StateText}" />
+                <TextBlock Grid.Column="3" Text="{Binding Connection}" />
+                <TextBlock Grid.Column="4" Text="{Binding Address}" />
+              </Grid>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </Border>
+
+    <!-- Wi-Fi -->
+    <Border Grid.Row="1" Classes="card">
+      <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="10">
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Classes="caption muted" Text="Wi-Fi mreže" VerticalAlignment="Center" />
+          <Button Grid.Column="1" Content="Skeniraj" Command="{Binding Scan}" />
+        </Grid>
+
+        <TextBlock Grid.Row="1" Text="{Binding Status}" Foreground="{DynamicResource AccentBrush}" TextWrapping="Wrap" />
+
+        <ListBox Grid.Row="2" MinHeight="150" ItemsSource="{Binding Networks}" SelectedItem="{Binding Selected}" Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="svc:WifiNetwork">
+              <Grid ColumnDefinitions="60,*,110,90">
+                <TextBlock Classes="muted" Text="{Binding SignalText}" />
+                <TextBlock Grid.Column="1" Text="{Binding Ssid}" />
+                <TextBlock Grid.Column="2" Classes="muted" Text="{Binding SecurityText}" />
+                <TextBlock Grid.Column="3" Text="{Binding ActiveText}" Foreground="{DynamicResource SuccessBrush}" />
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="3" Spacing="10" IsVisible="{Binding HasSelection}">
+          <TextBlock Classes="title" Text="{Binding SelectedTitle}" />
+          <TextBox Text="{Binding Password}" PasswordChar="•" RevealPassword="{Binding ShowPassword}"
+                   IsVisible="{Binding NeedsPassword}" PlaceholderText="lozinka (prazno za već sačuvanu mrežu)"
+                   Width="400" HorizontalAlignment="Left">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Enter" Command="{Binding Connect}" />
+            </TextBox.KeyBindings>
+          </TextBox>
+          <CheckBox Content="Prikaži lozinku" IsChecked="{Binding ShowPassword}" IsVisible="{Binding NeedsPassword}" />
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Button Classes="accent" Content="Poveži" Command="{Binding Connect}" />
+            <Button Content="Prekini vezu" Command="{Binding Disconnect}" IsVisible="{Binding CanDisconnect}" />
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+  </Grid>
+</UserControl>

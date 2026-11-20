@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:CloudAndBear.Ui.Views"
+        x:Class="CloudAndBear.Ui.Hosting.PreviewWindow"
+        Title="CloudAndBear Desktop (pregled)"
+        Width="1280" Height="800"
+        Background="{DynamicResource BackgroundBrush}">
+
+  <!-- Prozor služi samo za razvoj na PC-u; na uređaju se crta samo DesktopView -->
+  <views:DesktopView />
+</Window>

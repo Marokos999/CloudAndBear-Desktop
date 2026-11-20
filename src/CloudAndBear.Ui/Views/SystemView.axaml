@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CloudAndBear.Ui.ViewModels"
+             x:Class="CloudAndBear.Ui.Views.SystemView"
+             x:DataType="vm:SystemViewModel">
+
+  <ScrollViewer>
+    <StackPanel Margin="24" Spacing="16">
+
+      <!-- opterećenje -->
+      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="16">
+        <Border Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Classes="caption muted" Text="Procesor" />
+            <TextBlock Classes="title" Text="{Binding CpuText}" />
+            <ProgressBar Value="{Binding CpuPercent}" />
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Classes="caption muted" Text="Memorija" />
+            <TextBlock Classes="title" Text="{Binding MemoryText}" />
+            <ProgressBar Value="{Binding MemoryPercent}" />
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Classes="caption muted" Text="Disk /" />
+            <TextBlock Classes="title" Text="{Binding DiskText}" />
+            <ProgressBar Value="{Binding DiskPercent}" />
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Classes="card">
+          <StackPanel Spacing="8">
+            <TextBlock Classes="caption muted" Text="Baterija" />
+            <TextBlock Classes="title" Text="{Binding BatteryText}" />
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- podaci o računaru -->
+      <Border Classes="card">
+        <Grid ColumnDefinitions="150,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="10">
+          <TextBlock Classes="muted" Text="Sistem" />
+          <TextBlock Grid.Column="1" Text="{Binding OsName}" TextWrapping="Wrap" />
+          <TextBlock Grid.Row="1" Classes="muted" Text="Kernel" />
+          <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Kernel}" TextWrapping="Wrap" />
+          <TextBlock Grid.Row="2" Classes="muted" Text="Ime računara" />
+          <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Hostname}" TextWrapping="Wrap" />
+          <TextBlock Grid.Row="3" Classes="muted" Text="Procesor" />
+          <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Cpu}" TextWrapping="Wrap" />
+          <TextBlock Grid.Row="4" Classes="muted" Text="Vremenska zona" />
+          <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TimeZone}" TextWrapping="Wrap" />
+          <TextBlock Grid.Row="5" Classes="muted" Text="Radi" />
+          <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding UptimeText}" />
+        </Grid>
+      </Border>
+
+      <!-- napajanje -->
+      <Border Classes="card">
+        <StackPanel Spacing="12">
+          <TextBlock Classes="caption muted" Text="Napajanje" />
+
+          <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding !IsPending}">
+            <Button Content="Restartuj" Command="{Binding Restart}" />
+            <Button Content="Isključi" Command="{Binding Shutdown}" />
+            <Button Content="Izađi u konzolu" Command="{Binding ExitToConsole}" />
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal" Spacing="16" IsVisible="{Binding IsPending}">
+            <TextBlock Classes="title" Text="{Binding Question}" VerticalAlignment="Center" />
+            <Button Classes="accent" Content="Da" Command="{Binding Confirm}" />
+            <Button Content="Ne" Command="{Binding Cancel}" />
+          </StackPanel>
+
+          <TextBlock Text="{Binding Message}" IsVisible="{Binding HasMessage}"
+                     Foreground="{DynamicResource DangerBrush}" TextWrapping="Wrap" />
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

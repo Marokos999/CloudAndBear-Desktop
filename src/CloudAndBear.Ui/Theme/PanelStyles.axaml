@@ -1,0 +1,39 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Traka -->
+  <Style Selector="Border.panel">
+    <Setter Property="Height" Value="48" />
+    <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+  </Style>
+  <Style Selector="Border.separator">
+    <Setter Property="Width" Value="1" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="8,0" />
+    <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
+  </Style>
+
+  <!-- Dugme prozora na traci: aktivan je svetliji i ima liniju akcenta, minimizovan je zatamnjen -->
+  <Style Selector="Button.task">
+    <Setter Property="Height" Value="36" />
+    <Setter Property="MinWidth" Value="120" />
+  </Style>
+  <Style Selector="Button.task.active">
+    <Setter Property="Background" Value="{DynamicResource SurfaceRaisedBrush}" />
+  </Style>
+  <Style Selector="Button.task.minimized">
+    <Setter Property="Opacity" Value="0.6" />
+  </Style>
+  <Style Selector="Border.taskmark">
+    <Setter Property="Height" Value="2" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="Button.task.active Border.taskmark">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+
+</Styles>

@@ -1,0 +1,120 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+             x:Class="CloudAndBear.Ui.Views.StyleGuideView"
+             Background="{DynamicResource BackgroundBrush}"
+             TextElement.Foreground="{DynamicResource TextBrush}"
+             TextElement.FontSize="{DynamicResource FontSizeBody}">
+
+  <!-- Privremeni sadržaj: vodič kroz stil (tokeni teme). Zamenjuje ga pravi izgled kad Marko odredi pravac. -->
+  <ScrollViewer>
+    <StackPanel Margin="48" Spacing="40">
+
+      <StackPanel Spacing="4">
+        <TextBlock Classes="display" Text="CloudAndBear Desktop" />
+        <TextBlock Classes="muted" Text="Postolje za dizajn: tokeni teme (boje, tipografija, razmaci). Vrednosti su privremene." />
+      </StackPanel>
+
+      <!-- Boje -->
+      <StackPanel Spacing="16">
+        <TextBlock Classes="title" Text="Boje" />
+        <WrapPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource BackgroundBrush}" />
+            <TextBlock Classes="caption" Text="Background" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SurfaceBrush}" />
+            <TextBlock Classes="caption" Text="Surface" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SurfaceRaisedBrush}" />
+            <TextBlock Classes="caption" Text="SurfaceRaised" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource BorderBrush}" />
+            <TextBlock Classes="caption" Text="Border" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource AccentBrush}" />
+            <TextBlock Classes="caption" Text="Accent" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource TextBrush}" />
+            <TextBlock Classes="caption" Text="Text" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource TextMutedBrush}" />
+            <TextBlock Classes="caption" Text="TextMuted" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource SuccessBrush}" />
+            <TextBlock Classes="caption" Text="Success" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource WarningBrush}" />
+            <TextBlock Classes="caption" Text="Warning" />
+          </StackPanel>
+          <StackPanel Width="150" Margin="0,0,16,16" Spacing="6">
+            <Border Height="72" CornerRadius="{DynamicResource RadiusM}" Background="{DynamicResource DangerBrush}" />
+            <TextBlock Classes="caption" Text="Danger" />
+          </StackPanel>
+        </WrapPanel>
+      </StackPanel>
+
+      <!-- Tipografija -->
+      <StackPanel Spacing="12">
+        <TextBlock Classes="title" Text="Tipografija" />
+        <TextBlock Classes="display" Text="Display: Čćšđž 12:45" />
+        <TextBlock Classes="headline" Text="Headline: Mreža, Kontejneri, Sistem" />
+        <TextBlock Classes="title" Text="Title: Izaberite jezik i raspored tastature" />
+        <TextBlock Text="Body: Sistem je spreman. Pritisnite Enter za nastavak." />
+        <TextBlock Classes="caption muted" Text="Caption: wlan0 · 192.168.1.5 · 12 kontejnera" />
+      </StackPanel>
+
+      <!-- Kontrole -->
+      <StackPanel Spacing="16">
+        <TextBlock Classes="title" Text="Kontrole" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <Button Content="Podrazumevano" />
+          <Button Classes="accent" Content="Glavna radnja" />
+          <Button Content="Onemogućeno" IsEnabled="False" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <TextBox Width="280" PlaceholderText="Ime računara" />
+          <CheckBox Content="Prikaži lozinku" IsChecked="True" />
+          <ToggleSwitch OnContent="Uključeno" OffContent="Isključeno" IsChecked="True" />
+        </StackPanel>
+        <ProgressBar Width="480" HorizontalAlignment="Left" Value="64" />
+      </StackPanel>
+
+      <!-- Kartice i zaobljenje -->
+      <StackPanel Spacing="16">
+        <TextBlock Classes="title" Text="Kartice i zaobljenje" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <Border Classes="card" Width="220" CornerRadius="{DynamicResource RadiusS}">
+            <StackPanel Spacing="4">
+              <TextBlock Classes="caption muted" Text="RadiusS" />
+              <TextBlock Classes="headline" Text="23 %" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card" Width="220">
+            <StackPanel Spacing="4">
+              <TextBlock Classes="caption muted" Text="RadiusM" />
+              <TextBlock Classes="headline" Text="4,2 GB" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card" Width="220" CornerRadius="{DynamicResource RadiusL}">
+            <StackPanel Spacing="4">
+              <TextBlock Classes="caption muted" Text="RadiusL" />
+              <TextBlock Classes="headline" Text="87 %" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
