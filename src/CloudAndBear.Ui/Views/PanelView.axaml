@@ -7,10 +7,10 @@
   <Border Classes="panel">
     <Grid ColumnDefinitions="Auto,Auto,*,Auto" Margin="8,0">
 
-      <!-- pokretač -->
-      <Button Classes="flat" Width="40" Height="36" VerticalAlignment="Center"
+      <!-- pokretač: oblak iz logoa (assets/cloudandbear-cloud.svg) -->
+      <Button Classes="flat" Width="44" Height="36" VerticalAlignment="Center"
               Command="{Binding ToggleLauncherCommand}">
-        <Path Classes="icon" Data="M2,2 H7 V7 H2 Z M9,2 H14 V7 H9 Z M2,9 H7 V14 H2 Z M9,9 H14 V14 H9 Z" />
+        <Path Classes="logo" Data="M6.19,19.44 A5.19,5.19 0 0 1 5.91,9.07 A6.23,6.23 0 0 1 18.06,11.68 A3.94,3.94 0 1 1 19.06,19.44 Z" />
       </Button>
 
       <Border Grid.Column="1" Classes="separator" />

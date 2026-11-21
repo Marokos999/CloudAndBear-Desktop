@@ -10,4 +10,9 @@
     <PackageReference Include="Avalonia.Fonts.Inter" />
   </ItemGroup>
 
+  <!-- slike i drugi resursi (pozadina desktopa) ulaze u sam sklop, dostupni kao avares://CloudAndBear.Ui/Assets/... -->
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
 </Project>

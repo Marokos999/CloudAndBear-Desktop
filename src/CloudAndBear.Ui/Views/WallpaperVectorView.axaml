@@ -1,0 +1,269 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CloudAndBear.Ui.Views.WallpaperVectorView"
+             IsHitTestVisible="False">
+
+  <!--
+    Pozadina desktopa: oklopljeni (mehanički) medved na steni u magli.
+    Crtež je vektorski (bez slike), u prostoru 1600x900; Viewbox ga razvlači preko cele površine.
+    Paleta ilustracije je ovde, jer pripada crtežu, a ne temi aplikacija: plava i narandžasta iz logoa.
+  -->
+  <UserControl.Resources>
+    <LinearGradientBrush x:Key="SkyBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#0A111A" Offset="0" />
+      <GradientStop Color="#1B2B3E" Offset="0.55" />
+      <GradientStop Color="#131D28" Offset="1" />
+    </LinearGradientBrush>
+    <RadialGradientBrush x:Key="GlowBrush" Center="50%,50%" GradientOrigin="50%,50%" RadiusX="50%" RadiusY="50%">
+      <GradientStop Color="#884A6D94" Offset="0" />
+      <GradientStop Color="#004A6D94" Offset="1" />
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="FogBrush" Center="50%,50%" GradientOrigin="50%,50%" RadiusX="50%" RadiusY="50%">
+      <GradientStop Color="#6AA9BDD3" Offset="0" />
+      <GradientStop Color="#00A9BDD3" Offset="1" />
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="FogSoftBrush" Center="50%,50%" GradientOrigin="50%,50%" RadiusX="50%" RadiusY="50%">
+      <GradientStop Color="#3CA9BDD3" Offset="0" />
+      <GradientStop Color="#00A9BDD3" Offset="1" />
+    </RadialGradientBrush>
+    <LinearGradientBrush x:Key="VignetteBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#70070C12" Offset="0" />
+      <GradientStop Color="#00070C12" Offset="0.3" />
+      <GradientStop Color="#00070C12" Offset="0.75" />
+      <GradientStop Color="#60070C12" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="FurBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#42586F" Offset="0" />
+      <GradientStop Color="#263648" Offset="0.6" />
+      <GradientStop Color="#18232F" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="FurFarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#1E2B39" Offset="0" />
+      <GradientStop Color="#101923" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="MossBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#50808F4E" Offset="0" />
+      <GradientStop Color="#00808F4E" Offset="0.55" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="MuzzleBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+      <GradientStop Color="#6A7F8E" Offset="0" />
+      <GradientStop Color="#3A4B5B" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ArmorBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+      <GradientStop Color="#7DA8D3" Offset="0" />
+      <GradientStop Color="#3E6896" Offset="0.5" />
+      <GradientStop Color="#223E5E" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ArmorLightBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+      <GradientStop Color="#9CC3E8" Offset="0" />
+      <GradientStop Color="#4C79A7" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ArmorDarkBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+      <GradientStop Color="#315377" Offset="0" />
+      <GradientStop Color="#142940" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ClawBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#E7EEF5" Offset="0" />
+      <GradientStop Color="#8494A5" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="RockBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Color="#3B4957" Offset="0" />
+      <GradientStop Color="#1B2631" Offset="0.4" />
+      <GradientStop Color="#0E151D" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="OutlineBrush" Color="#0E2034" />
+    <SolidColorBrush x:Key="OrangeBrush" Color="#FF6A0E" />
+    <SolidColorBrush x:Key="MountainBrush" Color="#0F1A26" />
+  </UserControl.Resources>
+
+  <UserControl.Styles>
+    <!-- oklopna ploča: tamna kontura, zaobljeni spojevi -->
+    <Style Selector="Path.plate">
+      <Setter Property="Stroke" Value="{StaticResource OutlineBrush}" />
+      <Setter Property="StrokeThickness" Value="3" />
+      <Setter Property="StrokeJoin" Value="Round" />
+    </Style>
+    <!-- fuga između ploča -->
+    <Style Selector="Path.seam">
+      <Setter Property="Stroke" Value="{StaticResource OutlineBrush}" />
+      <Setter Property="StrokeThickness" Value="2.5" />
+      <Setter Property="StrokeLineCap" Value="Round" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <!-- narandžasta svetleća traka (sjaj + jezgro) -->
+    <Style Selector="Path.glow">
+      <Setter Property="Stroke" Value="{StaticResource OrangeBrush}" />
+      <Setter Property="StrokeThickness" Value="14" />
+      <Setter Property="StrokeLineCap" Value="Round" />
+      <Setter Property="Opacity" Value="0.22" />
+    </Style>
+    <Style Selector="Path.core">
+      <Setter Property="Stroke" Value="{StaticResource OrangeBrush}" />
+      <Setter Property="StrokeThickness" Value="4" />
+      <Setter Property="StrokeLineCap" Value="Round" />
+      <Setter Property="Opacity" Value="0.9" />
+    </Style>
+    <Style Selector="Path.claw">
+      <Setter Property="Fill" Value="{StaticResource ClawBrush}" />
+      <Setter Property="Stroke" Value="#40525F" />
+      <Setter Property="StrokeThickness" Value="1.2" />
+    </Style>
+  </UserControl.Styles>
+
+  <Viewbox Stretch="UniformToFill">
+    <Canvas Width="1600" Height="900">
+
+      <!-- nebo i svetlost iza medveda -->
+      <Rectangle Width="1600" Height="900" Fill="{StaticResource SkyBrush}" />
+      <Ellipse Canvas.Left="180" Canvas.Top="-60" Width="1300" Height="860" Fill="{StaticResource GlowBrush}" />
+
+      <!-- planine u magli -->
+      <Path Fill="{StaticResource MountainBrush}" Opacity="0.75"
+            Data="M0,420 C80,390 160,320 260,350 C330,372 380,425 440,470 L520,900 L0,900 Z" />
+      <Path Fill="{StaticResource MountainBrush}" Opacity="0.6"
+            Data="M1600,510 C1500,462 1420,410 1330,440 C1260,465 1200,530 1150,600 L1100,900 L1600,900 Z" />
+      <Ellipse Canvas.Left="-260" Canvas.Top="470" Width="1100" Height="300" Fill="{StaticResource FogBrush}" />
+      <Ellipse Canvas.Left="980" Canvas.Top="520" Width="1000" Height="280" Fill="{StaticResource FogBrush}" />
+
+      <!-- stena na kojoj stoji (ispod medveda, da mu šape i kandže ostanu cele) -->
+      <Path Fill="{StaticResource RockBrush}"
+            Data="M 0,900 L 0,800 C 60,770 150,748 260,742 C 330,738 380,742 420,744 C 560,748 760,744 900,746 C 1000,748 1100,752 1180,766 C 1280,784 1360,830 1440,850 C 1500,862 1560,858 1600,860 L 1600,900 Z" />
+      <Path Stroke="#7893AB" StrokeThickness="2.5" StrokeLineCap="Round" Opacity="0.35"
+            Data="M 0,800 C 60,770 150,748 260,742 C 330,738 380,742 420,744 C 560,748 760,744 900,746 C 1000,748 1100,752 1180,766" />
+      <Path Stroke="#070C12" StrokeThickness="2" StrokeLineCap="Round" Opacity="0.55"
+            Data="M 300,744 L 336,820 L 282,900 M 640,748 L 600,830 L 650,900 M 980,750 L 1020,830 L 960,900 M 1240,776 L 1200,850" />
+      <Ellipse Canvas.Left="520" Canvas.Top="736" Width="120" Height="22" Fill="#5A7A45" Opacity="0.45" />
+      <Ellipse Canvas.Left="190" Canvas.Top="752" Width="90" Height="18" Fill="#5A7A45" Opacity="0.4" />
+      <!-- senka ispod medveda -->
+      <Ellipse Canvas.Left="360" Canvas.Top="726" Width="920" Height="44" Fill="#80060A10" />
+
+      <!-- ============ MEDVED ============ -->
+
+      <!-- zadnja noga (dalja, u senci) -->
+      <Path Fill="{StaticResource FurFarBrush}"
+            Data="M 560,420 C 610,470 640,560 628,640 L 620,704 L 676,720 L 680,742 L 590,742 L 582,690 C 576,620 550,520 520,470 Z" />
+      <!-- prednja noga u zamahu (dalja strana) -->
+      <Path Fill="{StaticResource FurFarBrush}"
+            Data="M 950,470 L 1040,458 C 1078,510 1106,560 1122,606 L 1092,644 L 1030,632 C 1000,580 968,532 950,470 Z" />
+
+      <!-- dalje uvo (iza glave) -->
+      <Ellipse Canvas.Left="1112" Canvas.Top="190" Width="46" Height="48" Fill="{StaticResource FurFarBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="2.5" />
+
+      <!-- telo, vrat i glava -->
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 470,340 C 490,270 590,180 720,125 C 790,95 860,68 920,78 C 965,86 1000,120 1020,160 C 1060,166 1110,190 1146,236 C 1170,268 1200,296 1222,330 C 1236,356 1220,384 1192,390 C 1160,400 1130,414 1100,432 C 1066,452 1036,474 1020,500 C 1000,530 960,540 920,544 C 860,552 780,532 700,532 C 640,534 590,548 548,536 C 500,506 462,450 452,400 C 446,370 458,355 470,340 Z" />
+      <Path Fill="{StaticResource MossBrush}"
+            Data="M 470,340 C 490,270 590,180 720,125 C 790,95 860,68 920,78 C 965,86 1000,120 1020,160 C 1060,166 1110,190 1146,236 C 1170,268 1200,296 1222,330 C 1236,356 1220,384 1192,390 C 1160,400 1130,414 1100,432 C 1066,452 1036,474 1020,500 C 1000,530 960,540 920,544 C 860,552 780,532 700,532 C 640,534 590,548 548,536 C 500,506 462,450 452,400 C 446,370 458,355 470,340 Z" />
+      <!-- svetlost po ivici leđa -->
+      <Path Stroke="#8DB2D8" StrokeThickness="3" StrokeLineCap="Round" Opacity="0.4"
+            Data="M 478,330 C 500,270 600,182 720,128 C 790,98 860,72 920,82" />
+      <!-- krzno: kratki potezi -->
+      <Path Stroke="#6B88A6" StrokeThickness="2" StrokeLineCap="Round" Opacity="0.35"
+            Data="M 560,300 q 10,22 2,46 M 590,270 q 12,22 4,46 M 620,236 q 12,20 4,42 M 540,350 q 8,20 0,40
+                  M 1030,300 q 10,20 2,40 M 1060,330 q 10,18 2,36 M 1070,380 q 8,16 0,32 M 1020,370 q 10,18 2,34
+                  M 980,330 q 8,20 0,38 M 950,380 q 8,18 0,36 M 1040,420 q 8,14 0,28 M 990,420 q 6,16 0,30" />
+
+      <!-- uvo -->
+      <Path Classes="plate" Fill="{StaticResource ArmorDarkBrush}"
+            Data="M 940,96 L 1000,112 L 1016,152 L 958,162 Z" />
+      <Ellipse Canvas.Left="1002" Canvas.Top="128" Width="58" Height="62" Fill="{StaticResource FurFarBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="2.5" />
+      <Ellipse Canvas.Left="1016" Canvas.Top="144" Width="30" Height="32" Fill="#2C3E52" />
+
+      <!-- njuška -->
+      <Path Fill="{StaticResource MuzzleBrush}"
+            Data="M 1130,262 C 1170,290 1210,308 1222,334 C 1236,358 1220,386 1192,392 C 1160,402 1130,416 1100,434 C 1092,380 1100,310 1130,262 Z" />
+      <Path Fill="#0A1018" Data="M 1198,330 C 1220,318 1238,334 1234,352 C 1230,368 1208,370 1198,358 Z" />
+      <Path Stroke="#B8CCDD" StrokeThickness="2" StrokeLineCap="Round" Opacity="0.6" Data="M 1208,330 C 1216,326 1226,330 1228,336" />
+      <Path Stroke="#0A1018" StrokeThickness="3" StrokeLineCap="Round" Opacity="0.8" Data="M 1190,392 C 1160,390 1136,396 1108,410" />
+      <!-- oko -->
+      <Path Stroke="#0A1018" StrokeThickness="5" StrokeLineCap="Round" Data="M 1086,270 C 1104,258 1134,262 1148,278" />
+      <Ellipse Canvas.Left="1102" Canvas.Top="268" Width="34" Height="34" Fill="{StaticResource OrangeBrush}" Opacity="0.2" />
+      <Ellipse Canvas.Left="1113" Canvas.Top="279" Width="12" Height="12" Fill="{StaticResource OrangeBrush}" />
+      <Ellipse Canvas.Left="1117" Canvas.Top="282" Width="4" Height="4" Fill="#FFE2C2" />
+
+
+      <!-- zadnja noga (bliža): krzno + oklop -->
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 472,340 C 440,400 428,470 448,540 C 456,600 450,650 440,700 L 560,704 C 556,650 568,600 580,540 C 600,480 592,420 562,380 Z" />
+      <Path Classes="plate" Fill="{StaticResource ArmorDarkBrush}"
+            Data="M 480,326 L 566,298 L 606,380 L 594,452 L 504,442 L 470,380 Z" />
+      <Path Classes="seam" Data="M 520,320 L 540,440 M 566,306 L 560,446" />
+      <Path Classes="plate" Fill="{StaticResource ArmorBrush}"
+            Data="M 430,516 L 524,498 L 558,560 L 550,640 L 450,652 L 420,590 Z" />
+      <Path Classes="seam" Data="M 436,586 L 552,574" />
+      <Path Classes="glow" Data="M 452,616 L 540,606" />
+      <Path Classes="core" Data="M 452,616 L 540,606" />
+      <Path Classes="plate" Fill="{StaticResource ArmorDarkBrush}"
+            Data="M 438,662 L 548,658 L 558,702 L 438,708 Z" />
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 410,706 C 422,692 562,690 568,712 C 582,732 562,746 540,746 L 422,746 C 400,742 396,718 410,706 Z" />
+      <Path Classes="claw" Data="M 552,716 C 572,718 586,730 592,748 C 574,744 560,738 548,732 Z" />
+      <Path Classes="claw" Data="M 540,726 C 558,732 570,742 574,756 C 560,752 548,746 536,740 Z" />
+
+      <!-- prednja noga (stoji): krzno, oklop, šaka -->
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 650,430 C 620,520 624,610 640,690 L 800,694 C 806,620 800,520 770,430 Z" />
+      <Path Classes="plate" Fill="{StaticResource ArmorBrush}"
+            Data="M 620,444 L 772,426 L 802,520 L 788,574 L 640,588 L 610,520 Z" />
+      <Path Classes="seam" Data="M 640,588 L 788,574 M 704,434 L 710,584" />
+      <Path Classes="glow" Data="M 724,470 L 724,548" />
+      <Path Classes="core" Data="M 724,470 L 724,548" />
+      <Path Classes="plate" Fill="{StaticResource ArmorDarkBrush}"
+            Data="M 640,600 L 788,588 L 798,672 L 650,686 Z" />
+      <Path Classes="glow" Data="M 664,640 L 778,632" />
+      <Path Classes="core" Data="M 664,640 L 778,632" />
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 630,690 C 640,676 800,672 812,692 C 826,712 818,738 800,740 L 640,740 C 620,738 614,710 630,690 Z" />
+      <Path Classes="claw" Data="M 802,706 C 824,710 840,722 848,740 C 830,736 814,730 800,722 Z" />
+      <Path Classes="claw" Data="M 790,718 C 810,724 824,736 830,752 C 814,748 800,742 786,734 Z" />
+      <Path Classes="claw" Data="M 772,726 C 790,732 802,744 806,758 C 792,754 780,748 768,742 Z" />
+
+      <!-- prednja noga u zamahu: oklop + šaka sa kandžama -->
+      <Path Classes="plate" Fill="{StaticResource ArmorLightBrush}"
+            Data="M 948,466 L 1040,454 L 1078,516 L 1052,584 L 988,576 L 960,524 Z" />
+      <Path Classes="seam" Data="M 966,522 L 1060,514 M 1000,458 L 1018,578" />
+      <Path Classes="plate" Fill="{StaticResource ArmorBrush}"
+            Data="M 1004,592 L 1078,576 L 1126,604 L 1116,644 L 1044,640 Z" />
+      <Path Classes="glow" Data="M 1024,618 L 1102,612" />
+      <Path Classes="core" Data="M 1024,618 L 1102,612" />
+      <Path Fill="{StaticResource FurBrush}"
+            Data="M 1044,624 C 1094,606 1156,614 1176,650 C 1190,686 1176,716 1156,724 L 1076,716 C 1046,690 1034,656 1044,624 Z" />
+      <Path Classes="claw" Data="M 1094,712 C 1088,734 1086,754 1096,772 C 1104,756 1110,736 1112,714 Z" />
+      <Path Classes="claw" Data="M 1116,716 C 1112,738 1112,758 1124,776 C 1130,758 1134,738 1134,718 Z" />
+      <Path Classes="claw" Data="M 1138,716 C 1136,736 1138,756 1150,772 C 1154,756 1156,738 1154,718 Z" />
+
+      <!-- plećka: velika ploča + pojasevi -->
+      <Path Classes="plate" Fill="{StaticResource ArmorBrush}"
+            Data="M 700,190 L 770,112 L 870,80 L 945,92 L 972,160 L 950,240 L 880,300 L 800,322 L 726,296 L 694,240 Z" />
+      <Path Classes="plate" Fill="{StaticResource ArmorLightBrush}"
+            Data="M 770,112 L 870,80 L 945,92 L 932,132 L 852,128 L 792,152 Z" />
+      <Path Classes="seam" Data="M 792,152 L 764,292 M 852,128 L 884,300 M 706,236 L 960,214" />
+      <Ellipse Canvas.Left="796" Canvas.Top="156" Width="10" Height="10" Fill="#B7D3EE" />
+      <Ellipse Canvas.Left="878" Canvas.Top="138" Width="10" Height="10" Fill="#B7D3EE" />
+      <Ellipse Canvas.Left="934" Canvas.Top="166" Width="10" Height="10" Fill="#B7D3EE" />
+      <Ellipse Canvas.Left="898" Canvas.Top="262" Width="10" Height="10" Fill="#8FB1D3" />
+      <Ellipse Canvas.Left="760" Canvas.Top="268" Width="10" Height="10" Fill="#8FB1D3" />
+
+      <!-- zupčanik na ramenom zglobu -->
+      <Ellipse Canvas.Left="646" Canvas.Top="292" Width="124" Height="124" Fill="{StaticResource ArmorBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="3" />
+      <Ellipse Canvas.Left="662" Canvas.Top="308" Width="92" Height="92" Fill="{StaticResource ArmorDarkBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="2.5" />
+      <Ellipse Canvas.Left="676" Canvas.Top="322" Width="64" Height="64" Fill="{StaticResource ArmorLightBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="2.5" />
+      <Ellipse Canvas.Left="690" Canvas.Top="336" Width="36" Height="36" Fill="{StaticResource ArmorDarkBrush}" Stroke="{StaticResource OutlineBrush}" StrokeThickness="2.5" />
+      <Ellipse Canvas.Left="702" Canvas.Top="348" Width="12" Height="12" Fill="#B7D3EE" />
+      <Ellipse Canvas.Left="702" Canvas.Top="348" Width="12" Height="12" Fill="{StaticResource OrangeBrush}" Opacity="0.0" />
+
+      <!-- ============ STENA I MAGLA ============ -->
+
+      <!-- magla ispred: oko šapa i preko stene -->
+      <Ellipse Canvas.Left="200" Canvas.Top="740" Width="1200" Height="170" Fill="{StaticResource FogBrush}" Opacity="0.5" />
+      <Ellipse Canvas.Left="-300" Canvas.Top="720" Width="1000" Height="240" Fill="{StaticResource FogSoftBrush}" />
+      <Ellipse Canvas.Left="900" Canvas.Top="740" Width="900" Height="220" Fill="{StaticResource FogSoftBrush}" />
+      <Ellipse Canvas.Left="760" Canvas.Top="-100" Width="1100" Height="360" Fill="{StaticResource FogSoftBrush}" />
+
+      <Rectangle Width="1600" Height="900" Fill="{StaticResource VignetteBrush}" />
+    </Canvas>
+  </Viewbox>
+</UserControl>

@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CloudAndBear.Ui.Views.WallpaperView"
+             IsHitTestVisible="False">
+
+  <!--
+    Pozadina desktopa: oklopljeni medved na steni u magli (Assets/wallpaper-bear.jpg, 1920x1088).
+    Slika je napravljena Flux modelom (opis i seed su u assets/wallpaper-bear-prompt.txt).
+    UniformToFill: popuni celu povrsinu, na drugim razmerama se seku ivice.
+    Tamni sloj preko slike drzi prozore i traku citljivim. Vektorska rezerva: WallpaperVectorView.
+  -->
+  <Grid>
+    <Image Source="avares://CloudAndBear.Ui/Assets/wallpaper-bear.jpg" Stretch="UniformToFill" />
+    <Rectangle Fill="{DynamicResource WallpaperDimBrush}" />
+  </Grid>
+</UserControl>

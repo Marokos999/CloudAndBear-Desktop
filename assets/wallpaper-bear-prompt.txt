@@ -1,0 +1,11 @@
+Pozadina desktopa: Assets/wallpaper-bear.jpg (src/CloudAndBear.Ui/Assets)
+
+Model:    FLUX.1-schnell (GGUF Q4_K_S), ComfyUI, 4 koraka, cfg 1.0, euler/simple
+Velicina: 1920x1088 (PNG original 1,8 MB, smanjeno u JPEG kvalitet 90)
+Seed:     22
+
+Opis (prompt):
+Cinematic photo of an armored cybernetic grizzly bear standing on a rock in thick dark navy blue fog, full body visible, deep blue color grading, mechanical armor plates in steel blue on the shoulder and legs, glowing orange light strips and glowing orange eyes, moody, dark, volumetric fog, ultra detailed, no text, no watermark
+
+Napomena: FLUX.1-schnell je pod Apache 2.0 licencom (komercijalna upotreba dozvoljena).
+Ista slika se ponovo dobija samo sa istim seed-om, opisom, velicinom i istim modelom/ComfyUI verzijom (0.46.0).

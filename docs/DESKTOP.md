@@ -12,7 +12,7 @@ Odluka 2026-11-20: **pravi desktop** (više prozora, traka, pokretač), ne jedna
 
 ## Slojevi (odozdo naviše)
 
-1. **Pozadina**
+1. **Pozadina** (`Views/WallpaperView`): fotografija oklopljenog (mehaničkog) medveda na steni u magli, tamnoplava sa narandžastim detaljima iz logoa. Slika je napravljena Flux modelom (`Assets/wallpaper-bear.jpg`, 1920x1088; opis i seed u `assets/wallpaper-bear-prompt.txt`), `UniformToFill` je razvlači preko cele površine (na 16:10 se seku ivice), a blagi tamni sloj (token `WallpaperDimBrush`) drži prozore čitljivim. Vektorska verzija istog medveda ostaje kao rezerva u `Views/WallpaperVectorView` (ne koristi se). Na DRM uređaju nije probano.
 2. **Prozori** (`WindowHost`): z-redosled, fokus, pomeranje, promena veličine, minimizuj / maksimizuj / zatvori
 3. **Traka**: pokretač, otvoreni prozori, sistemska oblast (mreža, raspored tastature, baterija, zvuk, sat)
 4. **Preklopi**: pokretač (meni), obaveštenja, potvrde (Da/Ne), prebacivač prozora (Alt+Tab)

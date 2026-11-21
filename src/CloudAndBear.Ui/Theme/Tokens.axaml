@@ -35,6 +35,10 @@
   <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="{StaticResource BackgroundColor}" />
   <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="{StaticResource BackgroundColor}" />
 
+  <!-- Pozadina desktopa: tamni sloj preko slike (boja pozadine, oko 25 % neprozirnosti) -->
+  <Color x:Key="WallpaperDimColor">#40101820</Color>
+  <SolidColorBrush x:Key="WallpaperDimBrush" Color="{StaticResource WallpaperDimColor}" />
+
   <!-- Terminal: pozadina, tekst, kursor, izabrani tekst i 16 osnovnih boja (ANSI 0-15) -->
   <Color x:Key="TerminalBackgroundColor">#0B1118</Color>
   <Color x:Key="TerminalForegroundColor">#D7DEE6</Color>

@@ -11,6 +11,7 @@ Avalonia 12 / .NET 10 desktop za CloudAndBear (Debian, bez ikakvog drugog GUI-ja
 | `tools/CloudAndBear.Snapshot` | iscrtava pogled u PNG bez prozora (za proveru i review) |
 | `src/CloudAndBear.Device` | DRM domaćin za Debian: ulaz (tastatura, miš), raspored tastature, pravi servisi (vidi `docs/DEVICE.md`) |
 | `deploy/` | servis, nalog, PAM i polkit pravila, `install.sh` za uređaj |
+| `assets/` | logo: original (`logo-cloudandbear-original.png`) i oblak bez medveda i slova (`cloudandbear-cloud.svg` tamnoplav, `-light.svg` svetao za tamnu pozadinu); pozadina desktopa: opis i seed slike (`wallpaper-bear-prompt.txt`, sama slika je u `src/CloudAndBear.Ui/Assets`) |
 
 ## Pokretanje
 
